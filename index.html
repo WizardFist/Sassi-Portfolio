@@ -800,6 +800,64 @@ footer{
   .contacts{ gap:24px; flex-direction:column; }
   footer{ flex-direction:column; gap:10px; padding:20px 24px; }
 }
+  /* ===== HERO ORB PHOTO ===== */
+.hero{
+  flex-direction: row;
+  align-items: center;
+  gap: 80px;
+  justify-content: space-between;
+}
+.hero-inner{
+  flex: 1;
+}
+.orb-wrap{
+  position: relative;
+  flex-shrink: 0;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.orb-ring{
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px solid rgba(157,109,214,0.4);
+  box-shadow:
+    0 0 40px rgba(157,109,214,0.25),
+    0 0 80px rgba(157,109,214,0.12),
+    inset 0 0 40px rgba(157,109,214,0.08);
+  animation: breathe 6s ease-in-out infinite;
+}
+.orb-photo{
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid rgba(157,109,214,0.5);
+  box-shadow:
+    0 0 60px rgba(157,109,214,0.3),
+    0 0 120px rgba(157,109,214,0.15);
+  position: relative;
+  z-index: 2;
+}
+
+@media(max-width:900px){
+  .hero{
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
+  .orb-wrap{
+    width: 220px;
+    height: 220px;
+  }
+  .orb-photo{
+    width: 200px;
+    height: 200px;
+  }
+}
 </style>
 </head>
 <body>
@@ -821,7 +879,8 @@ footer{
 <div class="tab-panel active" id="tab-home">
 
   <section class="hero">
-    <div class="pre">South Carolina · Bound for Arizona</div>
+    <div class="hero-inner">
+<div class="pre">South Carolina · Bound for Arizona</div>
     <h1>Teacher, builder,<br>and resident <em>wizard</em><br>of the world.</h1>
     <p class="sub">CTE Marketing &amp; Web Design instructor. Curriculum architect. Campaign builder. Golfer. Aspiring club builder. I help students learn how to make things that matter, and I make a few things of my own along the way.</p>
     <div class="meta">
@@ -829,6 +888,11 @@ footer{
       <div><span>Currently</span>Teaching · Building · Composing</div>
       <div><span>Practice</span>Make. Iterate. Make again.</div>
     </div>
+     </div><!-- end hero-inner -->
+  <div class="orb-wrap">
+    <div class="orb-ring"></div>
+    <img src="assets/profile.jpg" alt="Matthew Sassi" class="orb-photo">
+  </div> 
   </section>
 
   <div class="divider"><div class="line"></div><div class="rune">✦  ✦  ✦</div><div class="line"></div></div>
