@@ -260,7 +260,28 @@ footer{position:relative;z-index:2;padding:18px 44px;display:flex;justify-conten
 .archive-note{font-size:13px;color:var(--text-dim);margin-top:14px;position:relative;z-index:2;font-style:italic;}
 .archive-sub{margin-top:18px;font-size:10px;letter-spacing:0.42em;text-transform:uppercase;color:var(--text-dim);position:relative;z-index:2;}
  
+#knicks-widget{position:fixed;top:16px;right:20px;z-index:199;
+  background:rgba(8,5,18,0.82);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border:1px solid rgba(0,119,79,0.35);border-radius:var(--rp);
+  box-shadow:0 4px 28px rgba(0,0,0,0.5),0 0 20px rgba(0,119,79,0.06);
+  min-width:220px;overflow:hidden;}
+.kw-header{display:flex;align-items:center;gap:7px;padding:7px 14px 6px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.kw-live{width:5px;height:5px;border-radius:50%;background:#00c97a;box-shadow:0 0 6px rgba(0,201,122,0.8);animation:breathe 2s ease-in-out infinite;}
+.kw-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;color:rgba(255,255,255,0.4);text-transform:uppercase;}
+.kw-card{padding:10px 14px;animation:fadeUp 0.4s cubic-bezier(0.2,0.85,0.2,1) forwards;}
+.kw-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1;}
+.kw-stats{display:flex;gap:10px;align-items:center;}
+.kw-stat{display:flex;flex-direction:column;align-items:center;gap:1px;}
+.kw-val{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#00c97a;line-height:1;}
+.kw-val.hi{color:#ff5800;}
+.kw-key{font-size:8px;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;}
+.kw-div{width:1px;height:22px;background:rgba(255,255,255,0.07);}
+.kw-bar{height:2px;background:rgba(255,255,255,0.07);}
+.kw-fill{height:100%;background:linear-gradient(90deg,#00774f,#00c97a);width:0%;}
+
+
 @media(max-width:860px){
+  #knicks-widget{display:none;}
   nav{top:10px;padding:3px 4px;}
   .nav-brand{padding:6px 11px;font-size:11px;}
   .pill-btn{padding:6px 11px;font-size:11px;}
@@ -293,6 +314,25 @@ footer{position:relative;z-index:2;padding:18px 44px;display:flex;justify-conten
   <button class="pill-btn" onclick="showTab('archive')" id="nav-archive">⌖</button>
 </nav>
  
+<div id="knicks-widget">
+  <div class="kw-header">
+    <div class="kw-live"></div>
+    <span class="kw-title">NYK · ECF Up 3-0</span>
+  </div>
+  <div class="kw-card" id="kw-card">
+    <div class="kw-name" id="kw-name">Jalen Brunson</div>
+    <div class="kw-stats">
+      <div class="kw-stat"><span class="kw-val hi" id="kw-pts">30</span><span class="kw-key">PTS</span></div>
+      <div class="kw-div"></div>
+      <div class="kw-stat"><span class="kw-val" id="kw-reb">3</span><span class="kw-key">REB</span></div>
+      <div class="kw-div"></div>
+      <div class="kw-stat"><span class="kw-val" id="kw-ast">6</span><span class="kw-key">AST</span></div>
+    </div>
+  </div>
+  <div class="kw-bar"><div class="kw-fill" id="kw-fill"></div></div>
+</div>
+
+
 <!-- ===== HOME ===== -->
 <div class="tab-panel active" id="tab-home">
   <div class="hero-bento">
@@ -603,6 +643,41 @@ document.querySelectorAll('audio').forEach(audio=>{
     document.querySelectorAll('audio').forEach(other=>{if(other!==e.target)other.pause();});
   });
 });
+const kwPlayers=[
+  {name:"Jalen Brunson",pts:30,reb:3,ast:6},
+  {name:"Mikal Bridges",pts:22,reb:6,ast:2},
+  {name:"OG Anunoby",pts:21,reb:7,ast:4},
+  {name:"Josh Hart",pts:12,reb:9,ast:5},
+  {name:"KAT Daddy",pts:13,reb:8,ast:7},
+  {name:"Landry Shamet",pts:14,reb:1,ast:3},
+];
+let kwIdx=0,kwStart=null;
+const kwName=document.getElementById('kw-name');
+const kwPts=document.getElementById('kw-pts');
+const kwReb=document.getElementById('kw-reb');
+const kwAst=document.getElementById('kw-ast');
+const kwFill=document.getElementById('kw-fill');
+const kwCard=document.getElementById('kw-card');
+function kwShow(i){
+  const p=kwPlayers[i];
+  kwCard.style.animation='none';
+  kwCard.offsetHeight;
+  kwCard.style.animation='fadeUp 0.4s cubic-bezier(0.2,0.85,0.2,1) forwards';
+  kwName.textContent=p.name;
+  kwPts.textContent=p.pts;
+  kwReb.textContent=p.reb;
+  kwAst.textContent=p.ast;
+}
+function kwAnimate(ts){
+  if(!kwStart)kwStart=ts;
+  const pct=Math.min(((ts-kwStart)/4000)*100,100);
+  kwFill.style.width=pct+'%';
+  if(pct>=100){kwIdx=(kwIdx+1)%kwPlayers.length;kwShow(kwIdx);kwStart=null;kwFill.style.width='0%';}
+  requestAnimationFrame(kwAnimate);
+}
+kwShow(0);
+requestAnimationFrame(kwAnimate);
+
 </script>
 </body>
 </html>
