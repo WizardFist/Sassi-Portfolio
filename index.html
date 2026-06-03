@@ -260,7 +260,19 @@ footer{position:relative;z-index:2;padding:18px 44px;display:flex;justify-conten
 .archive-note{font-size:13px;color:var(--text-dim);margin-top:14px;position:relative;z-index:2;font-style:italic;}
 .archive-sub{margin-top:18px;font-size:10px;letter-spacing:0.42em;text-transform:uppercase;color:var(--text-dim);position:relative;z-index:2;}
  
-
+.mirror-wrap{position:relative;width:200px;height:280px;z-index:2;filter:drop-shadow(0 0 20px rgba(184,127,255,0.35)) drop-shadow(0 0 50px rgba(184,127,255,0.12));animation:mirrorBreathe 5s ease-in-out infinite;flex-shrink:0;}
+@keyframes mirrorBreathe{0%,100%{filter:drop-shadow(0 0 20px rgba(184,127,255,0.3)) drop-shadow(0 0 50px rgba(184,127,255,0.1));}50%{filter:drop-shadow(0 0 40px rgba(184,127,255,0.55)) drop-shadow(0 0 80px rgba(94,255,240,0.15));}}
+.mirror-clip{position:absolute;inset:0;clip-path:polygon(15% 0%,85% 0%,100% 8%,100% 88%,92% 96%,85% 100%,15% 100%,8% 96%,0% 88%,0% 8%);overflow:hidden;width:200px;height:280px;}
+.mirror-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;}
+#mirror-rune-canvas{position:absolute;inset:0;width:200px;height:280px;pointer-events:none;opacity:0;z-index:15;}
+.mirror-corner{position:absolute;font-size:14px;color:rgba(184,127,255,0.6);text-shadow:0 0 8px rgba(184,127,255,0.8);animation:mirrorBreathe 4s ease-in-out infinite;z-index:21;}
+.mirror-corner.tl{top:6px;left:10px;}.mirror-corner.tr{top:6px;right:10px;}.mirror-corner.bl{bottom:6px;left:10px;}.mirror-corner.br{bottom:6px;right:10px;}
+.mirror-side{position:absolute;font-size:10px;color:rgba(94,255,240,0.4);z-index:21;writing-mode:vertical-rl;letter-spacing:3px;}
+.mirror-side.left{left:3px;top:50%;transform:translateY(-50%);}.mirror-side.right{right:3px;top:50%;transform:translateY(-50%);}
+.mirror-top{position:absolute;top:-2px;left:50%;transform:translateX(-50%);font-size:20px;color:rgba(212,170,255,0.8);text-shadow:0 0 12px rgba(184,127,255,0.9);z-index:22;animation:mirrorBreathe 3s ease-in-out infinite;}
+.mirror-bottom{position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);font-size:14px;color:rgba(94,255,240,0.7);text-shadow:0 0 10px rgba(94,255,240,0.8);z-index:22;animation:mirrorBreathe 4s ease-in-out infinite reverse;}
+.mirror-disclaimer{font-size:9px;color:rgba(245,240,255,0.22);letter-spacing:0.1em;font-style:italic;text-align:center;font-family:'DM Sans',sans-serif;}
+  
 @media(max-width:860px){
   .kw-star{cursor:pointer;transition:all 0.2s;display:inline-block;}
 .kw-star:hover{transform:scale(1.3) rotate(20deg);text-shadow:0 0 12px rgba(94,255,240,0.8);}
@@ -330,14 +342,38 @@ footer{position:relative;z-index:2;padding:18px 44px;display:flex;justify-conten
       </div>
     </div>
  
-    <div class="card hero-orb">
-      <div class="orb-container">
-        <div class="orb-ring3"></div>
-        <div class="orb-ring2"></div>
-        <div class="orb-ring"></div>
-        <img src="assets/profile.jpeg" alt="Matthew Sassi" class="orb-photo">
-      </div>
+<div class="card hero-orb" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+  <div class="mirror-wrap">
+    <div class="mirror-clip" id="mirror-clip">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:16;pointer-events:none" viewBox="0 0 200 280">
+        <polygon points="30,0 170,0 200,22.4 200,246.4 184,268.8 170,280 30,280 16,268.8 0,246.4 0,22.4" fill="none" stroke="rgba(184,127,255,0.6)" stroke-width="1.5"/>
+        <polygon points="30,0 170,0 200,22.4 200,246.4 184,268.8 170,280 30,280 16,268.8 0,246.4 0,22.4" fill="none" stroke="rgba(94,255,240,0.15)" stroke-width="5"/>
+        <line x1="30" y1="0" x2="55" y2="0" stroke="rgba(212,170,255,0.8)" stroke-width="2.5"/>
+        <line x1="145" y1="0" x2="170" y2="0" stroke="rgba(212,170,255,0.8)" stroke-width="2.5"/>
+        <line x1="30" y1="280" x2="55" y2="280" stroke="rgba(94,255,240,0.6)" stroke-width="2.5"/>
+        <line x1="145" y1="280" x2="170" y2="280" stroke="rgba(94,255,240,0.6)" stroke-width="2.5"/>
+        <line x1="0" y1="90" x2="7" y2="90" stroke="rgba(184,127,255,0.4)" stroke-width="1.5"/>
+        <line x1="0" y1="140" x2="9" y2="140" stroke="rgba(184,127,255,0.6)" stroke-width="2"/>
+        <line x1="0" y1="190" x2="7" y2="190" stroke="rgba(184,127,255,0.4)" stroke-width="1.5"/>
+        <line x1="200" y1="90" x2="193" y2="90" stroke="rgba(184,127,255,0.4)" stroke-width="1.5"/>
+        <line x1="200" y1="140" x2="191" y2="140" stroke="rgba(184,127,255,0.6)" stroke-width="2"/>
+        <line x1="200" y1="190" x2="193" y2="190" stroke="rgba(184,127,255,0.4)" stroke-width="1.5"/>
+      </svg>
+      <img src="assets/hstwo.jpg" alt="Matthew Sassi" class="mirror-photo" id="mirror-photo-a">
+      <img src="assets/hsone.jpg" alt="Matthew Sassi" class="mirror-photo" id="mirror-photo-b" style="opacity:0;">
+      <canvas id="mirror-rune-canvas" width="200" height="280"></canvas>
     </div>
+    <div class="mirror-corner tl">ᚠ</div>
+    <div class="mirror-corner tr">ᛟ</div>
+    <div class="mirror-corner bl">⛤</div>
+    <div class="mirror-corner br">◈</div>
+    <div class="mirror-side left">ᚢᚦᚨᚱᚲ</div>
+    <div class="mirror-side right">ᛁᛃᛇᛈᛉ</div>
+    <div class="mirror-top">⌖</div>
+    <div class="mirror-bottom">✦</div>
+  </div>
+  <div class="mirror-disclaimer">✦ hair styled by chemotherapy ✦</div>
+</div>
  
     <div class="hero-meta">
       <div class="card meta-card">
@@ -631,6 +667,84 @@ document.querySelectorAll('audio').forEach(audio=>{
   },10000);
 }
 
+  // SCRYING MIRROR GLITCH
+const MRUNES=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛜ','ᛞ','ᛟ','⌖','✦','◈','◇','⟁','⌘','⍟','Ψ','Ω','Σ','Λ','Ξ','Φ','∆','⛤'];
+let mShowingA=true,mAnimating=false;
+const mCanvas=document.getElementById('mirror-rune-canvas');
+const mCtx=mCanvas?mCanvas.getContext('2d'):null;
+const mPhotoA=document.getElementById('mirror-photo-a');
+const mPhotoB=document.getElementById('mirror-photo-b');
+const mClip=document.getElementById('mirror-clip');
+let mDrops=Array(14).fill(0).map(()=>Math.random()*-20);
+function mDrawRunes(alpha){
+  if(!mCtx)return;
+  mCtx.clearRect(0,0,200,280);
+  mCtx.font='12px Syne,monospace';
+  const cw=200/14;
+  for(let i=0;i<14;i++){
+    const r=MRUNES[Math.floor(Math.random()*MRUNES.length)];
+    const x=i*cw+cw/2;
+    const y=mDrops[i]*18;
+    const la=Math.min(1,alpha*1.4);
+    mCtx.fillStyle=`rgba(94,255,240,${la})`;
+    mCtx.fillText(r,x-5,y);
+    for(let t=1;t<7;t++){
+      const tr=MRUNES[Math.floor(Math.random()*MRUNES.length)];
+      const ta=Math.max(0,la-t*0.15);
+      mCtx.fillStyle=t>4?`rgba(184,127,255,${ta})`:`rgba(94,255,240,${ta*0.7})`;
+      mCtx.fillText(tr,x-5,y-t*18);
+    }
+    mDrops[i]+=0.9;
+    if(mDrops[i]*18>280+100)mDrops[i]=Math.random()*-10;
+  }
+}
+function mCreateFrags(el,n=12){
+  const frags=[];const h=280/n;
+  for(let i=0;i<n;i++){
+    const d=document.createElement('div');
+    d.style.cssText=`position:absolute;left:0;width:200px;height:${h+1}px;top:${i*h}px;overflow:hidden;z-index:8;`;
+    const inn=document.createElement('div');
+    inn.style.cssText=`position:absolute;top:-${i*h}px;left:0;width:200px;height:280px;`;
+    inn.appendChild(el.cloneNode(true));
+    d.appendChild(inn);mClip.appendChild(d);frags.push(d);
+  }
+  return frags;
+}
+function mRemoveFrags(f){f.forEach(x=>x.remove());}
+async function mGlitchSwitch(){
+  if(mAnimating||!mCanvas)return;
+  mAnimating=true;
+  const cur=mShowingA?mPhotoA:mPhotoB;
+  const nxt=mShowingA?mPhotoB:mPhotoA;
+  mCanvas.style.opacity='1';
+  mDrops=Array(14).fill(0).map(()=>Math.random()*-8);
+  let rs=null;
+  await new Promise(res=>{
+    function f(ts){if(!rs)rs=ts;const e=ts-rs;const p=Math.min(e/600,1);const a=p<0.7?p/0.7:1-(p-0.7)/0.3;mDrawRunes(a);if(e<600)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);
+  });
+  const frags=mCreateFrags(cur,12);cur.style.opacity='0';
+  const dirs=frags.map((_,i)=>({x:(Math.random()-0.5)*70,y:(i%2===0?-1:1)*(12+Math.random()*25),r:(Math.random()-0.5)*18}));
+  let ss=null;
+  await new Promise(res=>{
+    function f(ts){if(!ss)ss=ts;const e=ts-ss;const t=Math.min(e/400,1);const ease=t<0.5?2*t*t:-1+(4-2*t)*t;frags.forEach((fr,i)=>{fr.style.transform=`translate(${dirs[i].x*ease}px,${dirs[i].y*ease}px) rotate(${dirs[i].r*ease}deg)`;fr.style.opacity=String(1-ease);});mDrawRunes(1-t);if(e<400)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);
+  });
+  mRemoveFrags(frags);mCtx.clearRect(0,0,200,280);mCanvas.style.opacity='0';
+  nxt.style.opacity='0';
+  const afrags=mCreateFrags(nxt,12);
+  afrags.forEach((f,i)=>{f.style.transform=`translate(${-dirs[i].x*0.6}px,${-dirs[i].y*0.6}px) rotate(${-dirs[i].r*0.6}deg)`;f.style.opacity='0';});
+  mCanvas.style.opacity='1';mDrops=Array(14).fill(0).map(()=>Math.random()*-5);
+  let as=null;
+  await new Promise(res=>{
+    function f(ts){if(!as)as=ts;const e=ts-as;const t=Math.min(e/500,1);const ease=1-Math.pow(1-t,3);afrags.forEach((fr,i)=>{fr.style.transform=`translate(${-dirs[i].x*0.6*(1-ease)}px,${-dirs[i].y*0.6*(1-ease)}px) rotate(${-dirs[i].r*0.6*(1-ease)}deg)`;fr.style.opacity=String(ease);});mDrawRunes(1-t);if(e<500)requestAnimationFrame(f);else res();}
+    requestAnimationFrame(f);
+  });
+  mRemoveFrags(afrags);mCtx.clearRect(0,0,200,280);mCanvas.style.opacity='0';
+  nxt.style.opacity='1';mShowingA=!mShowingA;mAnimating=false;
+}
+if(mCanvas)setInterval(mGlitchSwitch,9000);
+  
 </script>
 </body>
 </html>
